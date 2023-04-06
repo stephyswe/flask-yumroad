@@ -1,0 +1,27 @@
+{% extends "base_layout.html" %}
+{% block title %} All Products {% endblock %}
+
+{% block content %}
+  <div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in products %}
+            <tr>
+              <th scope="row">
+                <a href="{{ url_for('products.details', product_id=product.id) }}">
+                    {{ product.name }}
+                </a>
+              </th>
+              <th scope="row">{{ product.description }}</th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+  </div>
+{% endblock %}

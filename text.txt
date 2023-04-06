@@ -1,0 +1,24 @@
+python.exe -m venv env
+source env/Scripts/activate
+pip install -r requirements.txt
+
+FLASK_APP=yumroad:create_app FLASK_DEBUG=1 flask run --port 8000
+
+export FLASK_APP=yumroad:create_app
+export FLASK_DEBUG=1
+
+flask shell
+--- create instance/dev.db ---
+from yumroad.extensions import db
+from yumroad.models import Product
+db.create_all()
+---- create product ----
+from yumroad.extensions import db
+from yumroad.models import Product
+art = Product(name="My art", description="desc")
+db.session.add(art)
+db.session.commit()
+
+
+flask routes #show all routes
+

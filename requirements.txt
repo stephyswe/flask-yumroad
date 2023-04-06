@@ -1,0 +1,14 @@
+wheel==0.37.1
+setuptools==62.1.0
+
+flask
+requests
+gunicorn
+
+flask-sqlalchemy
+
+
+pytest
+pytest-flask
+pytest-cov
+
