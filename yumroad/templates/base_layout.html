@@ -1,3 +1,5 @@
+{% from "_macros.html" import render_flashes %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,8 +13,12 @@
     </head>
     <body>
         <nav class="navbar navbar-light bg-light justify-content-between">
-            <a class="navbar-brand">Yumroad {% block brandtitle %} {% endblock %} </a>
+            <a class="navbar-brand">Yumroad {% block brandtitle %}{% endblock %} </a>
+            {% include '_navbar.html' %}
         </nav>
+        
+
+        {{ render_flashes() }}}
 
         <div class="container mt-3">
            {% block content %}{% endblock %}

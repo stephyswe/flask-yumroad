@@ -1,0 +1,21 @@
+{% extends "base_layout.html" %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block title %} Register {% endblock %}
+{% block brandtitle %} Register {% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1> Sign up for yumroad </h1>
+    <form method="POST" action="{{ url_for('user.register') }}">
+      {{ form.csrf_token }}
+
+      {{ render_field(form.email) }}
+      {{ render_field(form.password) }}
+      {{ render_field(form.confirm) }}
+
+      <button type="submit" class="btn btn-primary">Sign up</button>
+    </form>
+
+  </div>
+{% endblock %}

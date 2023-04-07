@@ -1,16 +1,18 @@
-from flask import Blueprint, render_template, redirect, request, url_for, abort
+from flask import Blueprint, render_template, redirect, url_for
+from flask_login import login_required
 
 from yumroad.models import Product, db
 from yumroad.forms import ProductForm
 
-products = Blueprint('products', __name__)
+product_bp = Blueprint('product', __name__)
 
-@products.route('/')
+@product_bp.route('/')
 def index():
     all_products = Product.query.all()
     return render_template('products/index.html', products=all_products)
 
-@products.route('/create', methods=['GET', 'POST'])
+@product_bp.route('/create', methods=['GET', 'POST'])
+@login_required
 def create():
     form = ProductForm()
     if form.validate_on_submit():
@@ -20,7 +22,7 @@ def create():
         return redirect(url_for('.details', product_id=product.id))
     return render_template('products/new.html', form=form)
 
-@products.route('/<int:product_id>/edit', methods=['GET', 'POST'])
+@product_bp.route('/<int:product_id>/edit', methods=['GET', 'POST'])
 def edit(product_id):
     product = Product.query.get_or_404(product_id)
     form = ProductForm(obj=product)
@@ -32,7 +34,7 @@ def edit(product_id):
         return redirect(url_for('.index'))
     return render_template('products/edit.html', product=product, form=form)
 
-@products.route('/<int:product_id>/delete', methods=['GET', 'POST', 'DELETE'])
+@product_bp.route('/<int:product_id>/delete', methods=['GET', 'POST', 'DELETE'])
 def delete(product_id):
     product = Product.query.get_or_404(product_id)
     form = ProductForm(obj=product)
@@ -43,7 +45,7 @@ def delete(product_id):
     db.session.commit()
     return redirect(url_for('.index'))
 
-@products.route('/<int:product_id>')
+@product_bp.route('/<int:product_id>')
 def details(product_id):
     product = Product.query.get_or_404(product_id)
     # Equivalent to:
@@ -52,6 +54,6 @@ def details(product_id):
     #    abort(404)
     return render_template('products/details.html', product=product)
 
-@products.errorhandler(404)
+@product_bp.errorhandler(404)
 def not_found(exception):
     return render_template('products/404.html'), 404

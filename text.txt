@@ -25,4 +25,18 @@ flask routes #show all routes
 
 #pytest
 pytest --cov --cov-report term-missing
+pytest -s tests/test_user.py::test_load_user
 
+# Login
+flask shell
+
+from yumroad.extensions import db
+from yumroad.models import User
+db.drop_all()
+db.create_all()
+test_user = User.create("test@example.com", "test")
+db.session.add(test_user)
+db.session.commit()
+
+#
+pip install -r requirements.txt

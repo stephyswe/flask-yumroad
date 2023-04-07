@@ -6,7 +6,7 @@
 {% block content %}
   <div class="container">
 
-    <form method="POST" action="{{ url_for('products.create') }}">
+    <form method="POST" action="{{ url_for('product.create') }}">
       {{ form.csrf_token }}
 
       {{ render_field(form.name) }}

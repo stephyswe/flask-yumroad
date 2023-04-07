@@ -16,19 +16,19 @@
           {% for product in products %}
             <tr>
               <th scope="row">
-                <a href="{{ url_for('products.details', product_id=product.id) }}">
+                <a href="{{ url_for('product.details', product_id=product.id) }}">
                     {{ product.name }}
                 </a>
               </th>
               <th scope="row">{{ product.description }}</th>
 
               <th scope="row">
-                <a href="{{ url_for('products.edit', product_id=product.id) }}">
+                <a href="{{ url_for('product.edit', product_id=product.id) }}">
                     Edit
                 </a>
               </th>
               <th scope="row">
-                <a href="{{ url_for('products.delete', product_id=product.id) }}">
+                <a href="{{ url_for('product.delete', product_id=product.id) }}">
                     Delete
                 </a>
               </th>
