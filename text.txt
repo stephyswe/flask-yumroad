@@ -3,6 +3,7 @@ source env/Scripts/activate
 pip install -r requirements.txt
 
 FLASK_APP=yumroad:create_app FLASK_DEBUG=1 flask run --port 8000
+flask run --port 8000
 
 export FLASK_APP=yumroad:create_app
 export FLASK_DEBUG=1
