@@ -20,6 +20,29 @@ def create():
         return redirect(url_for('.details', product_id=product.id))
     return render_template('products/new.html', form=form)
 
+@products.route('/<int:product_id>/edit', methods=['GET', 'POST'])
+def edit(product_id):
+    product = Product.query.get_or_404(product_id)
+    form = ProductForm(obj=product)
+    if form.validate_on_submit():
+        product.name = form.name.data
+        product.description = form.description.data
+        # db edit data
+        db.session.commit()
+        return redirect(url_for('.index'))
+    return render_template('products/edit.html', product=product, form=form)
+
+@products.route('/<int:product_id>/delete', methods=['GET', 'POST', 'DELETE'])
+def delete(product_id):
+    product = Product.query.get_or_404(product_id)
+    form = ProductForm(obj=product)
+    product.name = form.name.data
+    product.description = form.description.data
+    # db delete data
+    db.session.delete(product)
+    db.session.commit()
+    return redirect(url_for('.index'))
+
 @products.route('/<int:product_id>')
 def details(product_id):
     product = Product.query.get_or_404(product_id)

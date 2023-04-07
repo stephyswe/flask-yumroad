@@ -3,6 +3,7 @@ import os
 class BaseConfig:
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    WTF_CSRF_ENABLED = True
     SECRET_KEY = os.getenv('YUMROAD_SECRET_KEY')
 
 class DevConfig(BaseConfig):

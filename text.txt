@@ -23,3 +23,6 @@ db.session.commit()
 
 flask routes #show all routes
 
+#pytest
+pytest --cov --cov-report term-missing
+
