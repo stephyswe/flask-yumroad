@@ -29,6 +29,7 @@ class SignupForm(FlaskForm):
     password = PasswordField('Password', validators=[validators.InputRequired(), validators.length(min=4),
                                                      validators.EqualTo('confirm', message='Passwords must match')])
     confirm = PasswordField('Confirm Password', validators=[validators.InputRequired()])
+    store_name = StringField('Store Name', validators=[validators.InputRequired(), validators.length(min=4)])
 
     def validate(self, extra_validators=None):
         check_validate = super(SignupForm, self).validate()

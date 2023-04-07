@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for
-from flask_login import login_required
-
+from flask_login import login_required, current_user
 from yumroad.models import Product, db
 from yumroad.forms import ProductForm
 
@@ -16,7 +15,8 @@ def index():
 def create():
     form = ProductForm()
     if form.validate_on_submit():
-        product = Product(name=form.name.data, description=form.description.data)
+        product = Product(name=form.name.data, creator=current_user,
+                        store=current_user.store, description=form.description.data)
         db.session.add(product)
         db.session.commit()
         return redirect(url_for('.details', product_id=product.id))

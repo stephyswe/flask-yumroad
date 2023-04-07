@@ -1,0 +1,33 @@
+{% extends "base_layout.html" %}
+{% block title %} Stores {% endblock %}
+{% block brandtitle %} Stores {% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      {% for store in stores %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{ store.name }}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+              {% for product in store.products[0:3] %}
+                <li class="list-group-item">
+                    <a href="{{ url_for('product.details', product_id=product.id) }}" class="card-link">
+                      {{ product.name }}
+                    </a>
+                </li>
+              {% endfor %}
+            </ul>
+            <div class="card-body">
+              <a href="{{ url_for('store.show', store_id=store.id) }}" class="card-link btn btn-primary">
+                View more products from {{ store.name | title }}
+              </a>
+            </div>
+          </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+{% endblock %}

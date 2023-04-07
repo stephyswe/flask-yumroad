@@ -1,24 +1,24 @@
 from sqlalchemy.orm import validates
-from flask_login import UserMixin, AnonymousUserMixin
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash
 
 from yumroad.extensions import db
 
-class Product(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.String(120), nullable=False)
+Column = db.Column
+Model = db.Model
+Integer = db.Integer
+String = db.String
+Text = db.Text
+ForeignKey = db.ForeignKey
+relationship = db.relationship
 
-    @validates('name')
-    def validate_name(self, key, name):
-        if len(name.strip()) <= 3:
-            raise ValueError('needs to have a name')
-        return name
-    
 class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(255), nullable=False)
-    password = db.Column(db.String(), nullable=False)
+    id = Column(Integer, primary_key=True)
+    email = Column(String(255), nullable=False)
+    password = Column(String(), nullable=False)
+
+    store = relationship("Store", uselist=False, back_populates='user')
+    products = relationship("Product", back_populates='creator')
 
     @classmethod
     def create(cls, email, password):
@@ -26,3 +26,35 @@ class User(UserMixin, db.Model):
             raise ValueError('email and password are required')
         hashed_password = generate_password_hash(password)
         return User(email=email.lower().strip(), password=hashed_password)
+
+class Product(db.Model):
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255), nullable=False)
+    description = Column(String(120), nullable=False)
+    store_id = Column(Integer, ForeignKey('store.id'))
+    creator_id = Column(Integer, ForeignKey('user.id'))
+    price_cents = Column(Integer)
+    picture_url = Column(Text)
+
+    store = relationship("Store", uselist=False, back_populates="products")
+    creator = relationship("User", uselist=False, back_populates="products")
+
+    @validates('name')
+    def validate_name(self, key, name):
+        if len(name.strip()) <= 3:
+            raise ValueError('needs to have a name')
+        return name
+
+class Store(db.Model):
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255), nullable=False)
+    user_id = Column(Integer, ForeignKey('user.id'))
+
+    products = relationship("Product", back_populates='store')
+    user = relationship("User", uselist=False, back_populates="store")
+
+    @validates('name')
+    def validate_name(self, key, name):
+        if len(name.strip()) <= 3:
+            raise ValueError('needs to have a name')
+        return name

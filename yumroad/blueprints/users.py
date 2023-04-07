@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, request, url_for, sessio
 from flask_login import login_user, logout_user, login_required, current_user
 
 from yumroad.extensions import login_manager
-from yumroad.models import User, db
+from yumroad.models import User, Store, db
 from yumroad.forms import LoginForm, SignupForm
 
 user_bp = Blueprint('user', __name__)
@@ -40,7 +40,9 @@ def register():
     form = SignupForm()
     if form.validate_on_submit():
         user = User.create(form.email.data, form.password.data)
+        store = Store(name=form.store_name.data, user=user)
         db.session.add(user)
+        db.session.add(store)
         db.session.commit()
 
         login_user(user)

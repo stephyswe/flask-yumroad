@@ -1,11 +1,12 @@
 from flask import url_for
 import pytest
 
-from yumroad.models import db, User
+from yumroad.models import db, User, Store
 from yumroad.blueprints.users import load_user
 
 EXAMPLE_EMAIL = "test@example.com"
 EXAMPLE_PASSWORD = "test123"
+STORE_NAME = "Test Store"
 
 VALID_LOGIN_PARAMS = {
     'email': EXAMPLE_EMAIL,
@@ -13,6 +14,14 @@ VALID_LOGIN_PARAMS = {
 }
 
 VALID_REGISTER_PARAMS = {
+    'store_name': STORE_NAME,
+    'email': EXAMPLE_EMAIL,
+    'password': EXAMPLE_PASSWORD,
+    'confirm': EXAMPLE_PASSWORD,
+}
+
+SHORT_STORE_NAME = {
+    'store_name': 'abc',
     'email': EXAMPLE_EMAIL,
     'password': EXAMPLE_PASSWORD,
     'confirm': EXAMPLE_PASSWORD,
@@ -50,11 +59,18 @@ def test_get_register(client, init_database):
     assert response.status_code == 200
     assert 'Sign up' in str(response.data)
     assert 'Email' in str(response.data)
+    assert 'Store Name' in str(response.data)
     assert 'Password' in str(response.data)
+    assert 'Confirm Password' in str(response.data)
 
 def test_register(client, init_database):
     response = client.post('/register', data=VALID_REGISTER_PARAMS, follow_redirects=True)
     assert response.status_code == 200
+
+    assert User.query.count() == 1
+    assert Store.query.count() == 1
+    assert User.query.first().store == Store.query.first()
+
     assert b'Registered successfully.' in response.data
     assert EXAMPLE_EMAIL in str(response.data)
     assert b'All Product' in response.data
