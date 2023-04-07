@@ -40,3 +40,8 @@ db.session.commit()
 
 #
 pip install -r requirements.txt
+
+# migrations
+flask db init
+flask db migrate -m "initial migration"
+flask db upgrade

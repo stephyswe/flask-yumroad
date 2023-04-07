@@ -8,6 +8,7 @@ gunicorn
 flask-sqlalchemy
 Flask-WTF
 Flask-Login
+flask-migrate
 wtforms[email]
 
 
