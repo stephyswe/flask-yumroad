@@ -45,3 +45,17 @@ pip install -r requirements.txt
 flask db init
 flask db migrate -m "initial migration"
 flask db upgrade
+
+# mail - mailgun
+
+create mailgun account - https://app.mailgun.com/
+verify account by email
+pick domain with sandbox
+add recipient email - and verify it in email inbox
+copy over Username and Password from mailgun dashboard
+
+--- terminal ---
+export MAIL_SERVER='smtp.mailgun.org'
+export MAIL_PORT=587
+export MAIL_USERNAME='secretName'
+export MAIL_PASSWORD='secretPassword'

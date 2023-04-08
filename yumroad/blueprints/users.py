@@ -1,9 +1,12 @@
+import os
+
 from flask import Blueprint, render_template, redirect, request, url_for, session, flash
 from flask_login import login_user, logout_user, login_required, current_user
 
 from yumroad.extensions import login_manager
 from yumroad.models import User, Store, db
 from yumroad.forms import LoginForm, SignupForm
+from yumroad.email import send_pretty_welcome_message
 
 user_bp = Blueprint('user', __name__)
 
@@ -45,6 +48,7 @@ def register():
         db.session.add(store)
         db.session.commit()
 
+        send_pretty_welcome_message(user)
         login_user(user)
         flash("Registered successfully.", "success")
         return redirect(session.get('after_login') or url_for("product.index"))

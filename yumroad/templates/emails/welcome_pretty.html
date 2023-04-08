@@ -1,0 +1,39 @@
+{% extends "emails/base.html" %}
+
+{% block body %}
+<h3> Welcome to yumroad </h3>
+
+<p>We are so excited to have {{ store.name }} on yumroad</p>
+
+<div>
+    To get started, you should <a href="{{ url_for('product.create', _external=True) }}"> add products to your store. </a>
+</div>
+
+<br/>
+
+<div>
+    After setting up some products, you can share your <a href="{{ url_for('store.show', store_id=store.id, _external=True) }}"> store page </a> with others!
+</div>
+
+<br/>
+
+<!-- button -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+    <tbody>
+    <tr>
+        <td align="left">
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                <tbody>
+                <tr>
+                    <td> <a href="{{ url_for('product.create', _external=True) }}" target="_blank">Add Products</a> </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!-- end button -->
+
+
+{% endblock %}

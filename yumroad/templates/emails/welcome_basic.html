@@ -1,0 +1,15 @@
+<h3> Welcome to yumroad </h3>
+
+<p>We are so excited to have {{ store.name }} on yumroad</p>
+
+<div>
+    To get started, you should <a href="{{ url_for('product.create') }}"> add products to your store. </a>
+</div>
+
+<br/>
+
+<div>
+    After setting up some products, you can share your <a href="{{ url_for('store.show', store_id=store.id) }}"> store page </a> with others!
+</div>
+
+<br/>
