@@ -114,6 +114,24 @@ requirements: sentry-sdk
 
 export SENTRY_DSN=''
 
+# delayed jobs (redis)
+https://github.com/zkteco-home/redis-windows
+c:/utils/redis
+--
+file: redis.windows.conf
+    bind 127.0.0.1
+    requirepass your_password_here
+
+terminal: redis-server.exe redis.windows.conf
+terminal2: redis-cli.exe -a your_password_here
+
+
+
+
+
+
+
+requirements: Flask-RQ2, rq-dashboard
 
 
 

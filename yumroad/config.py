@@ -19,10 +19,17 @@ class BaseConfig:
 
     SENTRY_DSN = os.getenv('SENTRY_DSN')
 
+    REDIS_URL = os.getenv('REDIS_URL', 'redis://:@localhost:6379/0')
+    RQ_REDIS_URL = REDIS_URL
+    RQ_DASHBOARD_REDIS_URL = RQ_REDIS_URL
+
 class DevConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///{}'.format(os.path.join(folder_path, 'dev.db'))
     SECRET_KEY = os.getenv('YUMROAD_SECRET_KEY', '00000abcdef')
+    SQLALCHEMY_ECHO = True
+    # Don't do anything fancy with the assets pipeline (faster + easier to debug)
     ASSETS_DEBUG = True
+    RQ_REDIS_URL = REDIS_URL = os.getenv('REDIS_URL', 'redis://:@localhost:6379/0')
 
 class TestConfig(BaseConfig):
     TESTING = True
@@ -31,6 +38,9 @@ class TestConfig(BaseConfig):
     WTF_CSRF_ENABLED = False
     STRIPE_WEBHOOK_KEY = 'whsec_test_secret'
     ASSETS_DEBUG = True
+    # Run jobs instantly, without needing to spin up a worker
+    RQ_ASYNC = False
+    #RQ_CONNECTION_CLASS = 'fakeredis.FakeStrictRedis'
 
 class ProdConfig(BaseConfig):
     DEBUG = False
@@ -40,6 +50,9 @@ class ProdConfig(BaseConfig):
     # these two off
     SESSION_COOKIE_SECURE = True
     REMEMBER_COOKIE_SECURE = True
+    ASSETS_DEBUG = False
+    RQ_REDIS_URL = REDIS_URL = os.getenv('REDIS_URL')
+    RQ_ASYNC = (REDIS_URL is not None)
 
 configurations = {
     'dev': DevConfig,

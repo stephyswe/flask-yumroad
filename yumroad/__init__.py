@@ -3,6 +3,8 @@ import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
 from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
 
+import rq_dashboard
+
 from webassets.loaders import PythonLoader as PythonAssetsLoader
 
 from yumroad import assets
@@ -11,11 +13,12 @@ from yumroad.blueprints.users import user_bp
 from yumroad.blueprints.stores import store_bp
 from yumroad.blueprints.checkout import checkout_bp
 from yumroad.blueprints.landing import landing_bp
+from yumroad.blueprints.rq_dashboard import rq_blueprint
 
 from yumroad.config import configurations
 from yumroad.extensions import (db, csrf, login_manager, 
                                 migrate, mail, checkout, 
-                                assets_env)
+                                assets_env, rq2)
 # We need this line for alembic to discover the models.
 import yumroad.models
 
@@ -31,12 +34,13 @@ def create_app(environment_name='dev'):
     mail.init_app(app)
     checkout.init_app(app)
     assets_env.init_app(app)
+    rq2.init_app(app)
 
     assets_loader = PythonAssetsLoader(assets)
     for name, bundle in assets_loader.load_bundles().items():
         assets_env.register(name, bundle)
 
-    if app.config.get("SENTRY_DSN"):
+    if app.config.get("SENTRY_DSN"): # pragma: no cover
         sentry_sdk.init(
             dsn=app.config["SENTRY_DSN"],
             #send_default_pii=True,
@@ -63,7 +67,9 @@ def create_app(environment_name='dev'):
     app.register_blueprint(checkout_bp)
     app.register_blueprint(landing_bp)
 
-
+     # Admin tools
+    app.register_blueprint(rq_blueprint, url_prefix="/rq")
+    csrf.exempt(rq_blueprint)
 
     return app
 # FLASK_DEBUG=true FLASK_APP="yumroad:create_app" flask run
