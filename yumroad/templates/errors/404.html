@@ -1,0 +1,17 @@
+{% extends "base_layout.html" %}
+{% block title %} Not Found {% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">We couldn't find that page</h1>
+        <p class="lead">It might have disappeared. Maybe you'd like to see all stores on Yumroad instead?</p>
+        <div class="lead mt-4">
+            <a href="{{ url_for('store.index') }}" class="btn btn-primary btn-lg" role="button">
+                All Stores
+            </a>
+        </div>
+    </div>
+    </div>
+  </div>
+{% endblock %}

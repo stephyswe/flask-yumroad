@@ -16,6 +16,8 @@ Flask-assets
 cssmin
 jsmin
 
+sentry-sdk[flask]
+
 stripe
 vcrpy
 

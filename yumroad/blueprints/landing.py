@@ -1,6 +1,9 @@
+import logging
 from flask import Blueprint, render_template
 
 from yumroad.models import Store
+
+logger = logging.getLogger(__name__)
 
 landing_bp = Blueprint('landing', __name__)
 

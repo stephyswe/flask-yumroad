@@ -108,6 +108,11 @@ App: payments.py - line: 25-35
 requirements: Flask-assets, cssmin, jsmin
 pip freeze > requirements-freeze.txt
 
+----------------->
+#errors
+requirements: sentry-sdk
+
+export SENTRY_DSN=''
 
 
 

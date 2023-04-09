@@ -1,0 +1,17 @@
+{% extends "base_layout.html" %}
+{% block title %} Unauthorized {% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">You are not authorized to view that page</h1>
+        <p class="lead">It looks like you don't have enough permission to view that page. Maybe you'd like to view all stores instead?</p>
+        <div class="lead mt-4">
+            <a href="{{ url_for('store.index') }}" class="btn btn-primary btn-lg" role="button">
+                All Stores
+            </a>
+        </div>
+    </div>
+    </div>
+  </div>
+{% endblock %}
