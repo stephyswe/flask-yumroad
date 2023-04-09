@@ -1,0 +1,26 @@
+{% if stores %}
+    <div class="container">
+        <h3> Example stores </h3>
+        <div class="row mt-3">
+            {% for store in stores[0:3] %}
+                <div class="col-sm">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ store.name }}</h5>
+
+                            <div class="card-subtitle">
+                                {{ store.products | count }}
+                                {{  'product' if (store.products | count) == 1 else 'products' }}
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url_for('store.show', store_id=store.id) }}" class="card-link btn btn-primary">
+                                View {{ store.name | title  }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

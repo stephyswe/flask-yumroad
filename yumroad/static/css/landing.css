@@ -1,0 +1,35 @@
+.header {
+    padding: 50px;
+    background-color: #f0f8ff;
+    border-radius: 5px;
+}
+
+.feature-block {
+    margin-bottom: 30px;
+}
+
+.feature-icon {
+    font-size: 32px;
+    line-height: 52px;
+    color: #414c5c;
+    float: left;
+}
+
+.feature-text-block {
+    margin-left: 50px;
+    margin-top: 5px;
+}
+
+.feature-heading {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.feature-description {
+    margin-top: 15px;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 28px;
+}

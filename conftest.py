@@ -18,19 +18,19 @@ def init_database():
     yield db
     db.drop_all()
 
+# TODO: actually just yield user, rename to logged_in_user
 @pytest.fixture
 def authenticated_request(client):
-    new_user = User.create("test@example.com", "examplepass")
+    new_user = User.create("test@example.com", "pass")
     store = Store(name="Test Store", user=new_user)
     db.session.add(store)
-    db.session.add(new_user)
     db.session.commit()
 
     response = client.post(url_for('user.login'), data={
         'email': "test@example.com",
-        'password': "examplepass"
+        'password': "pass"
     }, follow_redirects=True)
-    yield client
+    yield new_user
 
 @pytest.fixture
 def mail_outbox():

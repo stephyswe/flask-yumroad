@@ -2,33 +2,30 @@
 {% block title %} {{ product.name }} - {{ product.store.name }} {% endblock %}
 {% block brandtitle %} Detail {% endblock %}
 
-{% block content %}
-{% if checkout_session_id %}
-    <script src="https://js.stripe.com/v3/"></script>
-    <script>
-      var stripe = Stripe('{{ stripe_publishable_key }}');
-
-      function purchase() {
-        stripe.redirectToCheckout({
-          sessionId: '{{checkout_session_id}}'
-        }).then(function (result) {
-          alert(result.error.message)
-        });
-      }
-
-    </script>
+{% block custom_assets %}
+  {% if checkout_session_id %}
+      <script src="https://js.stripe.com/v3/"></script>
+      <script>
+        var stripe = Stripe('{{ stripe_publishable_key }}');
+      </script>
+    
+    {% assets "purchase_js" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"> </script>
+    {% endassets %}
   {% endif %}
+{% endblock %}
 
+{% block content %}
 <div class="container">
   <div class="row mb-2">
     <div class="col col-12 col-sm-6">
       <img src="{{ product.primary_image_url }}" alt="Product Image" class="img-fluid img-thumbnail" />
     </div>
-    <div class="col col-12 col-sm-6">
+    <div class="co l col-12 col-sm-6">
       <h1> {{ product.name }} </h1>
       <hr />
       {% if checkout_session_id %}
-          <button onclick="purchase()" class="btn btn-primary"> Buy for {{ "${:,.2f}".format(product.price_cents/100.0) }} </button>
+          <button onclick="purchase(stripe, '{{checkout_session_id}}')" class="btn btn-primary"> Buy for {{ "${:,.2f}".format(product.price_cents/100.0) }} </button>
           <hr />
         {% else %}
           Sold out

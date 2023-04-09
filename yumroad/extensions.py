@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from sqlalchemy import MetaData
 from flask_mail import Mail
 from yumroad.payments import Checkout
+from flask_assets import Environment
 
 naming_convention = {
     "ix": 'ix_%(column_0_label)s',
@@ -20,3 +21,4 @@ login_manager = LoginManager()
 migrate = Migrate()
 mail = Mail()
 checkout = Checkout()
+assets_env = Environment()

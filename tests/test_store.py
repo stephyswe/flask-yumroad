@@ -30,18 +30,6 @@ def test_name_validation(client, init_database):
     assert Store.query.count() == 0
 
 # Functional Tests
-def test_home_redirects_to_index(client, init_database):
-    response = client.get(url_for('home'))
-    assert response.status_code == 302
-    assert response.location == url_for('product.index')
-    assert b'You should be redirected automatically to the target URL:' in response.data
-
-def test_home_redirects_to_index_follow(client, init_database):
-    response = client.get('/', follow_redirects=True)
-    assert response.status_code == 200
-    assert response.location == None
-    assert b'All Products' in response.data
-
 def test_index_page(client, init_database):
     store = create_store(num_products=5)
     response = client.get(url_for('store.index'))

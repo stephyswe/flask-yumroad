@@ -1,0 +1,1 @@
+You should be able to view this file at http://localhost:8000/static/test.txt

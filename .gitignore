@@ -20,3 +20,5 @@ database.db
 instance
 .coverage
 .pytest_cache
+
+yumroad/static/.webassets-cache

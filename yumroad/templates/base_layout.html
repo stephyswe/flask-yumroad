@@ -8,12 +8,24 @@
         </title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+        {% assets "common_css" %}
+            <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
+        {% endassets %}
+
+        {% assets "common_js" %}
+            <script type="text/javascript" src="{{ ASSET_URL }}"> </script>
+        {% endassets %}
+
+        {% block custom_assets %}
+
+        {% endblock %}
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body>
         <nav class="navbar navbar-light bg-light justify-content-between">
-            <a class="navbar-brand">Yumroad {% block brandtitle %}{% endblock %} </a>
+            <span class="navbar-brand">
+                <a href="{{ url_for('landing.index')}}" class="navbar-brand">Yumroad </a> <span>{% block brandtitle %}{% endblock %}</span>
+            </span> 
             {% include '_navbar.html' %}
         </nav>
         

@@ -12,6 +12,10 @@ Flask-migrate
 Flask-Mail
 wtforms[email]
 
+Flask-assets
+cssmin
+jsmin
+
 stripe
 vcrpy
 

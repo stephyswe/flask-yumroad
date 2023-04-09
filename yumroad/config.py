@@ -20,6 +20,7 @@ class BaseConfig:
 class DevConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///{}'.format(os.path.join(folder_path, 'dev.db'))
     SECRET_KEY = os.getenv('YUMROAD_SECRET_KEY', '00000abcdef')
+    ASSETS_DEBUG = True
 
 class TestConfig(BaseConfig):
     TESTING = True
@@ -27,6 +28,7 @@ class TestConfig(BaseConfig):
     SECRET_KEY = os.getenv('YUMROAD_SECRET_KEY', '12345abcdef')
     WTF_CSRF_ENABLED = False
     STRIPE_WEBHOOK_KEY = 'whsec_test_secret'
+    ASSETS_DEBUG = True
 
 class ProdConfig(BaseConfig):
     DEBUG = False

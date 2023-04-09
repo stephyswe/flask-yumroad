@@ -104,6 +104,10 @@ Test: checkout_test.py with cassettes, line:
 App: payments.py - line: 25-35
 
 ----------------->
+#assets
+requirements: Flask-assets, cssmin, jsmin
+pip freeze > requirements-freeze.txt
+
 
 
 
