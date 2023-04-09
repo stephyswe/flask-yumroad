@@ -11,6 +11,8 @@
 
       {{ render_field(form.name) }}
       {{ render_field(form.description) }}
+      {{ render_field(form.price, placeholder="5.00") }}
+      {{ render_field(form.picture_url, placeholder="https://example.com/image.png") }}
       <button type="submit" class="btn btn-primary">Create</button>
     </form>
 

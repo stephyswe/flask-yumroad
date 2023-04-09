@@ -1,0 +1,37 @@
+
+{% extends "emails/base.html" %}
+
+{% block body %}
+<h3> Your order </h3>
+
+<p> You've successfully purchased {{ product.name }} from {{ product.store.name }} </p>
+
+<br />
+
+<div>
+    If you have questions about your order, simply reply all to this email, the store has been CC'd on your order.
+</div>
+
+<br/>
+
+<!-- button -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+    <tbody>
+    <tr>
+        <td align="left">
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                <tbody>
+                <tr>
+                    <td> <a href="{{ url_for('product.details', product_id=product.id)}}" target="_blank">Add Products</a> </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- /button -->
+
+
+{% endblock %}

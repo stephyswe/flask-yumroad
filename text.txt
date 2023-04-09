@@ -59,3 +59,53 @@ export MAIL_SERVER='smtp.mailgun.org'
 export MAIL_PORT=587
 export MAIL_USERNAME='secretName'
 export MAIL_PASSWORD='secretPassword'
+
+# stripe
+
+requirements: stripe
+
+export STRIPE_SECRET_KEY='sk_test_51'
+export STRIPE_PUBLISHABLE_KEY='pk_test_51'
+export STRIPE_WEBHOOK_KEY='whsec_83'
+
+MISSING: stripe webhook get.
+stripe listen --forward-to localhost:8000/webhooks/stripe
+
+# stripe - testing
+
+requirements: vcrpy
+
+TO MAKE WORK: Need to export all values...
+
+# App
+export FLASK_APP=yumroad:create_app
+export FLASK_DEBUG=1
+
+# Stripe
+export STRIPE_SECRET_KEY='sk_test_51'
+export STRIPE_PUBLISHABLE_KEY='pk_test_51'
+
+- Setup webhook in _lib/stripe.exe
+# stripe Login
+# stripe listen --forward-to localhost:8000/webhooks/stripe
+export STRIPE_WEBHOOK_KEY='whsec_83'
+
+# Mailgun
+export MAIL_SERVER='smtp.mailgun.org'
+export MAIL_PORT=587
+export MAIL_USERNAME='secretName'
+export MAIL_PASSWORD='secretPassword'
+
+!!MISSING - Check if customer does not exist in stripe. 
+
+Test: checkout_test.py with cassettes, line: 
+- def test_checkout_with_invalid_product_id(app, init_database, user_with_product, client):
+
+App: payments.py - line: 25-35
+
+----------------->
+
+
+
+
+

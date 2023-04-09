@@ -44,6 +44,10 @@ class Product(db.Model):
         if len(name.strip()) <= 3:
             raise ValueError('needs to have a name')
         return name
+    
+    @property
+    def primary_image_url(self):
+        return self.picture_url or "https://placehold.co/600x400?text={}".format(self.name)
 
 class Store(db.Model):
     id = Column(Integer, primary_key=True)

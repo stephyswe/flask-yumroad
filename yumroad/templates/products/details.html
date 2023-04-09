@@ -1,13 +1,43 @@
 {% extends "base_layout.html" %}
-{% block title %} {{ product.name }} {% endblock %}
+{% block title %} {{ product.name }} - {{ product.store.name }} {% endblock %}
 {% block brandtitle %} Detail {% endblock %}
 
 {% block content %}
-  <div class="container">
-    <h1> {{ product.name }} </h1>
-    <hr />
-    <span> {{ product.description }} </span>
-    <hr />
-    <button> Purchase coming soon! </button>
+{% if checkout_session_id %}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      var stripe = Stripe('{{ stripe_publishable_key }}');
+
+      function purchase() {
+        stripe.redirectToCheckout({
+          sessionId: '{{checkout_session_id}}'
+        }).then(function (result) {
+          alert(result.error.message)
+        });
+      }
+
+    </script>
+  {% endif %}
+
+<div class="container">
+  <div class="row mb-2">
+    <div class="col col-12 col-sm-6">
+      <img src="{{ product.primary_image_url }}" alt="Product Image" class="img-fluid img-thumbnail" />
+    </div>
+    <div class="col col-12 col-sm-6">
+      <h1> {{ product.name }} </h1>
+      <hr />
+      {% if checkout_session_id %}
+          <button onclick="purchase()" class="btn btn-primary"> Buy for {{ "${:,.2f}".format(product.price_cents/100.0) }} </button>
+          <hr />
+        {% else %}
+          Sold out
+        {% endif %}
+      <span> {{ product.description }} </span>
+      <hr />
+      <a href="{{ url_for('store.show', store_id=product.store.id) }}" class="btn btn-secondary btn-sm">
+        See more products from {{ product.store.name }} </a>
+    </div>
   </div>
+</div>
 {% endblock %}

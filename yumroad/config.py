@@ -13,6 +13,10 @@ class BaseConfig:
     MAIL_USERNAME = os.getenv('MAIL_USERNAME')
     MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
 
+    STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', 'sk_test_k1')
+    STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY', 'pk_test_k1')
+    STRIPE_WEBHOOK_KEY = os.getenv('STRIPE_WEBHOOK_KEY', 'whsec_test_secret')
+
 class DevConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///{}'.format(os.path.join(folder_path, 'dev.db'))
     SECRET_KEY = os.getenv('YUMROAD_SECRET_KEY', '00000abcdef')
@@ -22,6 +26,7 @@ class TestConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///{}'.format(os.path.join(folder_path, 'test.db'))
     SECRET_KEY = os.getenv('YUMROAD_SECRET_KEY', '12345abcdef')
     WTF_CSRF_ENABLED = False
+    STRIPE_WEBHOOK_KEY = 'whsec_test_secret'
 
 class ProdConfig(BaseConfig):
     DEBUG = False

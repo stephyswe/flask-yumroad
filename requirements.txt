@@ -12,7 +12,8 @@ Flask-migrate
 Flask-Mail
 wtforms[email]
 
-
+stripe
+vcrpy
 
 pytest
 pytest-flask

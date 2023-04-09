@@ -6,19 +6,33 @@
   <div class="container">
     
     <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-          </tr>
-        </thead>
+      <thead>
+        <tr>
+          <th scope="col">Product</th>
+          <th scope="col">Name</th>
+          <th scope="col">Store</th>
+          <th scope="col">Description</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
         <tbody>
           {% for product in products %}
             <tr>
               <th scope="row">
+                <img src="{{ product.primary_image_url }}" alt="Product Image" width="50px" class="img-thumbnail" />
+              </th>
+              <th scope="row">
                 <a href="{{ url_for('product.details', product_id=product.id) }}">
                     {{ product.name }}
                 </a>
+              </th>
+              <th scope="row">
+                {% if product.store_id %}
+                  <a href="{{ url_for('store.show', store_id=product.store_id) }}" class="card-link btn btn-outline-primary">
+                      {{ product.store.name }}
+                  </a>
+                {% endif %}
               </th>
               <th scope="row">{{ product.description }}</th>
 

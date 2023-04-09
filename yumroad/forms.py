@@ -1,17 +1,21 @@
 from flask_wtf import FlaskForm
 
-from wtforms import StringField, PasswordField, validators
+from wtforms import StringField, PasswordField
+from wtforms.validators import Length, URL, email, InputRequired, EqualTo, Optional
 from werkzeug.security import check_password_hash
+from wtforms.fields import DecimalField
 
 from yumroad.models import User
 
 class ProductForm(FlaskForm):
-    name = StringField('Name', [validators.Length(min=4, max=60)])
+    name = StringField('Name', validators=[Length(min=4, max=60)])
     description = StringField('Description')
+    picture_url = StringField('Picture URL', description='Optional', validators=[Optional(), URL()])
+    price = DecimalField('Price', description='In USD, Optional')
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[validators.email(), validators.InputRequired()])
-    password = PasswordField('Password', validators=[validators.InputRequired()])
+    email = StringField('Email', validators=[email(), InputRequired()])
+    password = PasswordField('Password', validators=[InputRequired()])
 
     def validate(self, extra_validators=None):
         check_validate = super(LoginForm, self).validate()
@@ -25,11 +29,11 @@ class LoginForm(FlaskForm):
         return True
 
 class SignupForm(FlaskForm):
-    email = StringField('Email', validators=[validators.email(), validators.InputRequired()])
-    password = PasswordField('Password', validators=[validators.InputRequired(), validators.length(min=4),
-                                                     validators.EqualTo('confirm', message='Passwords must match')])
-    confirm = PasswordField('Confirm Password', validators=[validators.InputRequired()])
-    store_name = StringField('Store Name', validators=[validators.InputRequired(), validators.length(min=4)])
+    email = StringField('Email', validators=[email(), InputRequired()])
+    password = PasswordField('Password', validators=[InputRequired(), Length(min=4),
+                                                     EqualTo('confirm', message='Passwords must match')])
+    confirm = PasswordField('Confirm Password', validators=[InputRequired()])
+    store_name = StringField('Store Name', validators=[InputRequired(), Length(min=4)])
 
     def validate(self, extra_validators=None):
         check_validate = super(SignupForm, self).validate()

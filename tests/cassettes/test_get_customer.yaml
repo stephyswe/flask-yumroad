@@ -1,0 +1,63 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - Stripe/v1 PythonBindings/5.4.0
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version": "5.4.0", "lang": "python", "publisher": "stripe", "httplib":
+        "requests", "lang_version": "3.10.4", "platform": "Windows-10-10.0.19044-SP0",
+        "uname": "Windows DESKTOP-90ROKD9 10 10.0.19044 AMD64 Intel64 Family 6 Model
+        165 Stepping 5, GenuineIntel"}'
+    method: GET
+    uri: https://api.stripe.com/v1/customers/cus_Ng84CNRBTFHcJ2
+  response:
+    body:
+      string: "{\n  \"id\": \"cus_Ng84CNRBTFHcJ2\",\n  \"object\": \"customer\",\n
+        \ \"address\": null,\n  \"balance\": 0,\n  \"created\": 1680998931,\n  \"currency\":
+        null,\n  \"default_source\": null,\n  \"delinquent\": false,\n  \"description\":
+        null,\n  \"discount\": null,\n  \"email\": \"moonchildeverlasting@gmail.com\",\n
+        \ \"invoice_prefix\": \"746D5622\",\n  \"invoice_settings\": {\n    \"custom_fields\":
+        null,\n    \"default_payment_method\": null,\n    \"footer\": null,\n    \"rendering_options\":
+        null\n  },\n  \"livemode\": false,\n  \"metadata\": {},\n  \"name\": null,\n
+        \ \"phone\": null,\n  \"preferred_locales\": [],\n  \"shipping\": null,\n
+        \ \"tax_exempt\": \"none\",\n  \"test_clock\": null\n}"
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '612'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 09 Apr 2023 10:35:45 GMT
+      Request-Id:
+      - req_KsHuYt0N7Myjvw
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains; preload
+      Stripe-Version:
+      - '2022-11-15'
+    status:
+      code: 200
+      message: OK
+version: 1

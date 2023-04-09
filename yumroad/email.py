@@ -26,3 +26,13 @@ def send_pretty_welcome_message(user):
 
     message.html = render_template('emails/welcome_pretty.html', store=user.store)
     mail.send(message)
+
+def send_purchase_email(email, product):
+    store = product.store
+    message = Message('Your purchase of {} from {}'.format(product.name, store.name),
+                      sender=DEFAULT_FROM,
+                      cc=[store.user.email],
+                      recipients=[email])
+
+    message.html = render_template('emails/purchase.html', product=product)
+    mail.send(message)

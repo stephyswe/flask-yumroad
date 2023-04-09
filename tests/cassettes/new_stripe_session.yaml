@@ -1,0 +1,91 @@
+interactions:
+- request:
+    body: payment_method_types[0]=card&client_reference_id=1&line_items[0][price_data][currency]=usd&line_items[0][price_data][product_data][name]=Sherlock+Homes&line_items[0][price_data][product_data][description]=a+house+hunting+detective&line_items[0][price_data][product_data][images][0]=https%3A%2F%2Fplacehold.co%2F600x400%3Ftext%3DSherlock+Homes&line_items[0][price_data][unit_amount]=5000&line_items[0][quantity]=1&mode=payment&success_url=http%3A%2F%2Flocalhost%2Fproduct%2F1%2Fpost_checkout%3Fsession_id%3D%7BCHECKOUT_SESSION_ID%7D%26status%3Dsuccess&cancel_url=http%3A%2F%2Flocalhost%2Fproduct%2F1%2Fpost_checkout%3Fsession_id%3D%7BCHECKOUT_SESSION_ID%7D%26status%3Dcancel
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '673'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Idempotency-Key:
+      - bcff28b8-b68c-4921-8c43-fa533b80f39f
+      User-Agent:
+      - Stripe/v1 PythonBindings/5.4.0
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version": "5.4.0", "lang": "python", "publisher": "stripe", "httplib":
+        "requests", "lang_version": "3.10.4", "platform": "Windows-10-10.0.19044-SP0",
+        "uname": "Windows DESKTOP-90ROKD9 10 10.0.19044 AMD64 Intel64 Family 6 Model
+        165 Stepping 5, GenuineIntel"}'
+    method: POST
+    uri: https://api.stripe.com/v1/checkout/sessions
+  response:
+    body:
+      string: "{\n  \"id\": \"cs_test_a1SeQStzY7FMLjgX0nSO8TJFkubA9XKeRk8SZcCdU0aJRieFrAs0cjJxIv\",\n
+        \ \"object\": \"checkout.session\",\n  \"after_expiration\": null,\n  \"allow_promotion_codes\":
+        null,\n  \"amount_subtotal\": 5000,\n  \"amount_total\": 5000,\n  \"automatic_tax\":
+        {\n    \"enabled\": false,\n    \"status\": null\n  },\n  \"billing_address_collection\":
+        null,\n  \"cancel_url\": \"http://localhost/product/1/post_checkout?session_id={CHECKOUT_SESSION_ID}&status=cancel\",\n
+        \ \"client_reference_id\": \"1\",\n  \"consent\": null,\n  \"consent_collection\":
+        null,\n  \"created\": 1681033680,\n  \"currency\": \"usd\",\n  \"currency_conversion\":
+        null,\n  \"custom_fields\": [],\n  \"custom_text\": {\n    \"shipping_address\":
+        null,\n    \"submit\": null\n  },\n  \"customer\": null,\n  \"customer_creation\":
+        \"if_required\",\n  \"customer_details\": null,\n  \"customer_email\": null,\n
+        \ \"expires_at\": 1681120080,\n  \"invoice\": null,\n  \"invoice_creation\":
+        {\n    \"enabled\": false,\n    \"invoice_data\": {\n      \"account_tax_ids\":
+        null,\n      \"custom_fields\": null,\n      \"description\": null,\n      \"footer\":
+        null,\n      \"metadata\": {},\n      \"rendering_options\": null\n    }\n
+        \ },\n  \"livemode\": false,\n  \"locale\": null,\n  \"metadata\": {},\n  \"mode\":
+        \"payment\",\n  \"payment_intent\": null,\n  \"payment_link\": null,\n  \"payment_method_collection\":
+        \"always\",\n  \"payment_method_options\": {},\n  \"payment_method_types\":
+        [\n    \"card\"\n  ],\n  \"payment_status\": \"unpaid\",\n  \"phone_number_collection\":
+        {\n    \"enabled\": false\n  },\n  \"recovered_from\": null,\n  \"setup_intent\":
+        null,\n  \"shipping_address_collection\": null,\n  \"shipping_cost\": null,\n
+        \ \"shipping_details\": null,\n  \"shipping_options\": [],\n  \"status\":
+        \"open\",\n  \"submit_type\": null,\n  \"subscription\": null,\n  \"success_url\":
+        \"http://localhost/product/1/post_checkout?session_id={CHECKOUT_SESSION_ID}&status=success\",\n
+        \ \"total_details\": {\n    \"amount_discount\": 0,\n    \"amount_shipping\":
+        0,\n    \"amount_tax\": 0\n  },\n  \"url\": \"https://checkout.stripe.com/c/pay/cs_test_a1SeQStzY7FMLjgX0nSO8TJFkubA9XKeRk8SZcCdU0aJRieFrAs0cjJxIv#fidkdWxOYHwnPyd1blpxYHZxWjA0SHBsfGJGNDBvSWZJSj1HPUhiRDFnUnVINTI9YU9vaGRrYnBRSEJEV0FVaU9OQlNMU0tIa04yNDI1Ymp8YlBsUX9tREBtPDAwTHNNQnVtdldGTTw2NzNVNTVVXVBtaFE9RicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl\"\n}"
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2235'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 09 Apr 2023 09:48:01 GMT
+      Idempotency-Key:
+      - bcff28b8-b68c-4921-8c43-fa533b80f39f
+      Original-Request:
+      - req_KTenQA7wN7OAVK
+      Request-Id:
+      - req_KTenQA7wN7OAVK
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains; preload
+      Stripe-Should-Retry:
+      - 'false'
+      Stripe-Version:
+      - '2022-11-15'
+    status:
+      code: 200
+      message: OK
+version: 1
