@@ -125,13 +125,21 @@ file: redis.windows.conf
 terminal: redis-server.exe redis.windows.conf
 terminal2: redis-cli.exe -a your_password_here
 
-
-
-
-
-
-
 requirements: Flask-RQ2, rq-dashboard
+
+# performance
+
+requirements: Flask-Caching
+
+try:
+    for i in range(100):
+        p = Product(name="Sample Product {}".format(i+1), description="A test product", store_id=1, creator_id=1)
+        db.session.add(p)
+        db.session.commit()
+except KeyboardInterrupt:
+    db.session.rollback()
+    print("Process interrupted, changes rolled back.")
+
 
 
 

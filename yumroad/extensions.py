@@ -2,11 +2,15 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
 from flask_login import LoginManager
 from flask_migrate import Migrate
-from sqlalchemy import MetaData
 from flask_mail import Mail
-from yumroad.payments import Checkout
 from flask_assets import Environment
 from flask_rq2 import RQ
+from flask_debugtoolbar import DebugToolbarExtension
+from flask_caching import Cache
+
+from yumroad.payments import Checkout
+
+from sqlalchemy import MetaData
 
 naming_convention = {
     "ix": 'ix_%(column_0_label)s',
@@ -23,8 +27,8 @@ migrate = Migrate()
 mail = Mail()
 checkout = Checkout()
 assets_env = Environment()
-
-
+debug_toolbar = DebugToolbarExtension()
+cache = Cache()
 rq2 = RQ()
 
 """ @rq2.job

@@ -27,9 +27,15 @@ class DevConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///{}'.format(os.path.join(folder_path, 'dev.db'))
     SECRET_KEY = os.getenv('YUMROAD_SECRET_KEY', '00000abcdef')
     SQLALCHEMY_ECHO = True
+    SQLALCHEMY_RECORD_QUERIES = True
+    DEBUG = True
     # Don't do anything fancy with the assets pipeline (faster + easier to debug)
     ASSETS_DEBUG = True
     RQ_REDIS_URL = REDIS_URL = os.getenv('REDIS_URL', 'redis://:@localhost:6379/0')
+    CACHE_TYPE = 'simple'
+    DEBUG_TB_INTERCEPT_REDIRECTS = False
+    DEBUG_TB_ENABLED = True
+
 
 class TestConfig(BaseConfig):
     TESTING = True
@@ -40,7 +46,10 @@ class TestConfig(BaseConfig):
     ASSETS_DEBUG = True
     # Run jobs instantly, without needing to spin up a worker
     RQ_ASYNC = False
-    #RQ_CONNECTION_CLASS = 'fakeredis.FakeStrictRedis'
+    RQ_CONNECTION_CLASS = 'fakeredis.FakeStrictRedis'
+    DEBUG_TB_ENABLED = False
+    CACHE_TYPE = 'null'
+    CACHE_NO_NULL_WARNING = True
 
 class ProdConfig(BaseConfig):
     DEBUG = False
@@ -53,6 +62,8 @@ class ProdConfig(BaseConfig):
     ASSETS_DEBUG = False
     RQ_REDIS_URL = REDIS_URL = os.getenv('REDIS_URL')
     RQ_ASYNC = (REDIS_URL is not None)
+    CACHE_TYPE = 'redis'
+    CACHE_KEY_PREFIX = 'yumroad-'
 
 configurations = {
     'dev': DevConfig,

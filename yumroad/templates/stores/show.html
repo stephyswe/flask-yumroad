@@ -6,7 +6,7 @@
     <div class="row">
         <h1> {{ store.name }} </h1>
     </div>
-        {% for product_row in products | batch(3) %}
+        {% for product_row in products.items | batch(3) %}
             <div class="row mb-3">
                 {% for product in product_row %}
                     <div class="col-4">
@@ -26,6 +26,48 @@
                 {% endfor %}
             </div>
         {% endfor %}
+
+        <nav aria-label="Product navigation" class="mb-5 mt-2">
+            <ul class="pagination justify-content-center">
+                {% if products.has_prev %}
+                    <li class="page-item">
+                        <a class="page-link" tabindex="-1"  href="{{ url_for('store.show', store_id=store.id, page=products.prev_num) }}">Previous</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                {% endif %}
+
+                {% for page in products.iter_pages(right_current=2) %}
+                    {% if page %}
+                        {% if page != products.page %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('store.show', store_id=store.id, page=page) }}">{{ page }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">{{ page }}</a>
+                        </li>
+                        {% endif %}
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="ellipsis page-link">…</span>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+              {% if products.has_next %}
+                <li class="page-item">
+                    <a class="page-link" tabindex="-1"  href="{{ url_for('store.show', store_id=store.id, page=products.next_num) }}">Next</a>
+                </li>
+              {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1">Next</a>
+                </li>
+              {% endif %}
+          </ul>
+        </nav>
     </div>
   </div>
 {% endblock %}
