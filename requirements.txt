@@ -34,3 +34,9 @@ pytest-flask
 pytest-cov
 
 flake8
+autoflake
+autopep8
+black
+isort
+mypy
+
