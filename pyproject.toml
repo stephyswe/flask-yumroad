@@ -1,0 +1,7 @@
+[tool.black]
+# Format the code in place (do not create a new file)
+target-version = ['py38']
+line-length = 79
+exclude = '''
+^env/
+'''
